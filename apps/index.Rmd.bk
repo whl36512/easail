@@ -1,0 +1,86 @@
+---
+title: "Easail Yearly Growth"
+output:
+  flexdashboard::flex_dashboard:
+    contentType: UTF-8
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# load data in 'global' chunk so it can be shared by all users of the dashboard
+library(flexdashboard)
+library(RPostgreSQL)
+library(DBI)
+library(data.table)
+
+#data(faithful)
+drv<-dbDriver("PostgreSQL")
+db<-dbConnect(drv, host="35.192.79.77", dbname="tao", user="tao", password="tao",  port="5432")
+```
+
+```{sql, connection=db, output.var="brand"}
+select distinct brand
+from product p
+  , salesumhist s
+where p.product_name = s.product_name
+```
+
+<!-- ```{sql, connection=db, output.var="year"} -->
+<!-- select distinct to_char(summary_date, 'YYYY') -->
+<!-- from salesumhist; -->
+<!-- ``` -->
+
+```{sql, connection=db, output.var="revenue"}
+select to_char(summary_date, 'YYYY') s_year, brand, round(sum(s.net_sale)/10000, 2) net_sale_s
+--, round(sum(oper_profit)/10000, 2) oper_profit_s, round(100*sum(oper_profit)/sum(net_sale), 2) grs_profit_r
+from salesumhist s
+	, product p
+where s.product_name = p.product_name
+and s.net_sale is not null
+group by summary_date, brand
+order by summary_date, brand;
+```
+
+```{r}
+revenue.pivot <- 
+  dcast(revenue, s_year ~ brand, na.rm=TRUE)
+shinyApp(
+  ui = fillPage(
+    fillCol(flex = c(NA, 1),
+    inputPanel(selectInput("brand", "Brand:", choices = brand) ),
+    plotOutput("revenuPlot", height = "100%")
+    )
+  ),
+  server = function(input, output) {
+    output$revenuPlot <- renderPlot({
+      barplot(revenue.pivot[,input$brand], ylab = "Revenue in RMB (Ten Thousand)",
+       xlab = "Year", main = "Sales History", beside= TRUE)
+  })
+  },
+  options = list(height = 600)
+)
+```
+
+
+<!-- Inputs {.sidebar} -->
+<!-- ----------------------------------------------------------------------- -->
+
+<!-- ```{r} -->
+<!-- selectInput("brand", label = "Brand", brand) -->
+
+<!-- ``` -->
+
+<!-- Outputs -->
+<!-- ----------------------------------------------------------------------- -->
+
+<!-- ### Revenues by year -->
+
+<!-- ```{r} -->
+<!-- renderPlot({ -->
+<!--   barplot(revenue$net_sale_s, beside = FALSE, ylab = "Revenue in RMB (Ten Thousand)", -->
+<!--        xlab = "Year", main = "Sales History") -->
+<!--   #  -->
+<!--   # dens <- density(revenue$eruptions, adjust = input$bw_adjust) -->
+<!--   # lines(dens, col = "blue") -->
+<!-- }) -->
+<!-- ``` -->

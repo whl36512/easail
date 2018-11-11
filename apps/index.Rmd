@@ -1,0 +1,385 @@
+---
+title: "2017伊梭市场报告"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    contentType: UTF-8
+runtime: shiny
+---
+
+```{r global, include = FALSE}
+library(flexdashboard)
+library(RPostgreSQL)
+library(DBI)
+library(wordcloud2)
+library(d3heatmap)
+library(reshape2)
+library(htmltools)
+library(maps)
+library(leaflet)
+library(dygraphs)
+library(showtext)
+library(data.table)
+
+drv<-dbDriver("PostgreSQL")
+db<-dbConnect(drv, host="35.192.79.77", dbname="tao", user="tao", password="tao",  port="5432")
+
+# knitr::opts_chunk$set(conneciton="db")
+```
+
+# 整体
+
+Row
+---------------------------
+
+```{sql, connection=db, output.var="revenue"}
+select summary_date, round(sum(net_sale)/10000, 2) net_sale_s
+, round(sum(oper_profit)/10000, 2) oper_profit_s
+, round(100*sum(oper_profit)/sum(net_sale), 2) grs_profit_r
+from salesumhist
+where summary_date in ('2016-12-31', '2017-12-31')
+group by summary_date
+order by summary_date
+```
+
+### 销售额（万元）
+
+```{r}
+if(revenue$net_sale_s[2] > 1.1 * revenue$net_sale_s[1]){
+  valueBox(revenue$net_sale_s[2], icon="fa-angle-up", color = "success")
+} else if(revenue$net_sale_s[2] < 1.2 * revenue$net_sale_s[1]) {
+  valueBox(revenue$net_sale_s[2], icon="fa-angle-down", color = "danger")
+} else if(revenue$net_sale_s[2] < 1.1 * revenue$net_sale_s[1]) {
+  valueBox(revenue$net_sale_s[2], icon="fa-angle-down", color = "warning")
+} else {
+  valueBox(revenue$net_sale_s[2])
+}
+```
+
+### 营业利润（万元）
+
+```{r}
+if(revenue$oper_profit_s[2] > 1.1 * revenue$oper_profit_s[1]){
+  valueBox(revenue$oper_profit_s[2], icon="fa-angle-up", color = "success")
+} else if(revenue$oper_profit_s[2] < 1.2 * revenue$oper_profit_s[1]) {
+  valueBox(revenue$oper_profit_s[2], icon="fa-angle-down", color = "danger")
+} else if(revenue$oper_profit_s[2] < 1.1 * revenue$oper_profit_s[1]) {
+  valueBox(revenue$oper_profit_s[2], icon="fa-angle-down", color = "warning")
+} else {
+  valueBox(revenue$oper_profit_s[2])
+}
+```
+
+### 毛利率（%）
+
+```{r}
+if(revenue$grs_profit_r[2] > 1.1 * revenue$grs_profit_r[1]){
+  valueBox(revenue$grs_profit_r[2], icon="fa-angle-up", color = "success")
+} else if(revenue$grs_profit_r[2] < 1.2 * revenue$grs_profit_r[1]) {
+  valueBox(revenue$grs_profit_r[2], icon="fa-angle-down", color = "danger")
+} else if(revenue$grs_profit_r[2] < 1.1 * revenue$grs_profit_r[1]) {
+  valueBox(revenue$grs_profit_r[2], icon="fa-angle-down", color = "warning")
+} else {
+  valueBox(revenue$grs_profit_r[2])
+}
+```
+
+Row
+---------------------------
+
+<!-- ### 成长轨迹 -->
+
+<!-- ```{sql, connection=db, output.var="growth"} -->
+<!-- select to_char(summary_date, 'YYYY') summary_date, round(sum(net_sale)/10000, 2) net_sale_s, round(sum(oper_profit)/10000, 2) oper_profit_s, round(100*sum(oper_profit)/sum(net_sale), 2) grs_profit_r -->
+<!-- from salesumhist -->
+<!-- group by summary_date -->
+<!-- order by summary_date -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- gts<-ts(growth$net_sale_s, start=c(2014, 1), frequency = 1) -->
+<!-- pts<-ts(growth$oper_profit_s, start=c(2014, 1), frequency = 1) -->
+<!-- rts<-ts(growth$grs_profit_r, start=c(2014, 1), frequency = 1) -->
+
+<!-- showtext_auto() -->
+
+<!-- dygraph( cbind(gts, pts, rts), elementId = "growth", width="500", height="400" ) %>% -->
+<!--   dyAxis("y", label="金额（万元)") %>% -->
+<!--   dyAxis("y2", label = "毛利率(%)") %>% -->
+<!--   dySeries("gts", label="销售额") %>% -->
+<!--   dySeries("pts", label="营业利润") %>% -->
+<!--   dySeries("rts", label="毛利率", axis='y2') -->
+<!-- ``` -->
+
+### 分布
+
+```{sql, connection=db, output.var="city"}
+with sale_city as (
+select city, round(sum(net_sale)/10000, 2) net_sale_s
+from entity e
+	, salesumhist s
+where summary_date = '2017-12-31'
+and s.customer_name = e.short_name
+and city is not null
+group by city
+)
+select s.city, s.city || ' ' || s.net_sale_s net_sale_s, round(longitude,0) longitude, round(latitude,0) latitude
+from sale_city s left outer join city c on ( s.city = c.name )
+order by net_sale_s desc;
+```
+
+```{r, width=50, height=40}
+mp=map("world", "China", fill=TRUE, plot=FALSE)
+leaflet(data=mp, options=leafletOptions(minZoom = 3, maxZoom = 6))%>%
+  addTiles()%>%
+  addPolygons(fillColor = topo.colors(10, alpha = NULL), stroke=FALSE)%>%
+  addMarkers(city$longitude, city$latitude, popup=htmlEscape(as.character(city$net_sale_s)), clusterOptions = markerClusterOptions())
+
+```
+
+<!-- Row -->
+<!-- --------------------------- -->
+
+### 渠道
+
+```{sql, connection=db, output.var="bc"}
+with brand as (
+select brand
+from salesumhist s
+	, product p
+where summary_date = '2017-12-31'
+and s.product_name = p.product_name
+and net_sale is not null
+group by brand
+order by sum(net_sale) desc
+limit 10
+)
+, bchannel as (
+select b.brand, e.channel, sum(net_sale) net_sale_s
+from brand b
+	, salesumhist s
+	, product p
+	, entity e
+where s.summary_date = '2017-12-31'
+and s.product_name = p.product_name
+and p.brand = b.brand
+and s.customer_name = e.short_name
+group by b.brand, e.channel
+)
+, channel as (
+select  distinct e.channel
+from salesumhist s
+, entity e
+where s.summary_date = '2017-12-31'
+and s.customer_name = e.short_name
+and s.net_sale is not null
+and e.channel is not null
+and e.channel not like '%3M'
+)
+select b.brand, c.channel
+	, case when b.net_sale_s is null then 0
+		else round(b.net_sale_s/10000, 2)
+	  end
+from channel c left outer join bchannel b on (c.channel = b.channel)
+order by c.channel
+
+```
+
+```{r}
+d<-dcast(bc, brand~channel)
+d1<-data.matrix(d)
+d3heatmap(d1, dendrogram="none",  labRow=d$brand, color=scales::col_quantile("Blues", NULL, n=15), width="50%", length="50%")
+
+```
+
+<!-- ### 品牌 -->
+
+<!-- ```{sql, connection=db, output.var="brand"} -->
+<!-- select brand, round(sum(net_sale)/10000, 2) -->
+<!-- from salesumhist s -->
+<!-- 	, product p -->
+<!-- where summary_date = '2017-12-31' -->
+<!-- and s.product_name = p.product_name -->
+<!-- and net_sale is not null -->
+<!-- group by brand -->
+<!-- order by sum(net_sale) desc -->
+<!-- limit 10 -->
+
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- wordcloud2(brand) -->
+
+<!-- ``` -->
+
+
+# 销售历史
+
+Row
+---------------------------
+
+### 销售额
+
+```{sql, connection=db, output.var="brand"}
+select distinct brand
+from product p
+  , salesumhist s
+where p.product_name = s.product_name
+and s.product not in (select item from saleitemexcpt)
+```
+
+<!-- ```{sql, connection=db, output.var="revenue_b"} -->
+<!-- select to_char(summary_date, 'YYYY') s_year -->
+<!-- --, brand -->
+<!-- --, round(sum(s.net_sale)/10000, 2) net_sale_s -->
+<!-- , round(sum(oper_profit)/10000, 2) oper_profit_s -->
+<!-- --, round(100*sum(oper_profit)/sum(net_sale), 2) grs_profit_r -->
+<!-- from salesumhist s -->
+<!-- 	, product p -->
+<!-- where s.product_name = p.product_name -->
+<!-- and s.net_sale is not null -->
+<!-- and brand = '乐家' -->
+<!-- group by summary_date, brand -->
+<!-- order by summary_date, brand; -->
+<!-- ``` -->
+
+```{sql, connection=db, output.var="revenue"}
+select to_char(summary_date, 'YYYY') s_year
+, brand
+, round(sum(coalesce(net_sale, 0))/10000, 2) net_sale_s    
+from salesumhist s
+	, product p
+where s.product_name = p.product_name
+group by summary_date, brand
+order by summary_date, brand;
+```
+
+```{sql, connection=db, output.var="profit"}
+select to_char(summary_date, 'YYYY') s_year
+, brand
+, round(sum(coalesce(oper_profit, 0))/10000, 2) oper_profit_s   
+from salesumhist s
+	, product p
+where s.product_name = p.product_name
+group by summary_date, brand
+order by summary_date, brand;
+```
+
+```{sql, connection=db, output.var="rate"}
+select to_char(summary_date, 'YYYY') s_year
+, brand
+, round(100*sum(coalesce(oper_profit, 0))/sum(net_sale), 2) grs_profit_r 
+from salesumhist s
+	, product p
+where s.product_name = p.product_name
+group by summary_date, brand
+order by summary_date, brand;
+```
+
+
+```{r}
+# revenue_b.pivot <- dcast(revenue_b, revenue_b$s_year)
+
+revenue.pivot <- dcast(revenue, s_year~brand)
+profit.pivot <- dcast(profit, s_year~brand)
+rate.pivot <- dcast(rate, s_year~brand)
+
+# d<- table(revenue.pivot, profit.pivot)
+
+gts<-ts(revenue$net_sale_s, start=c(2014, 1), frequency = 1)
+pts<-ts(profit$oper_profit_s, start=c(2014, 1), frequency = 1)
+rts<-ts(rate$grs_profit_r, start=c(2014, 1), frequency = 1)
+
+shinyApp(
+    ui = fillPage(
+      fillCol(flex = c(NA, 1),
+      inputPanel(selectInput("brand", "brand:", choices = brand) ),
+      plotOutput("revenuPlot", height = "100%")
+      )
+    ),
+    server = function(input, output) {
+      output$revenuPlot <- renderPlot({
+    barplot(c(revenue.pivot)[,input$brand], ylab = "Revenue",
+     xlab = "Year", main = "", beside= TRUE, names.arg = revenue.pivot$s_year)
+    # barplot(profit.pivot[,input$brand], ylab = "Revenue",
+    #  xlab = "Year", main = "", beside= TRUE)
+    
+
+      # showtext_auto()
+      # 
+      # dygraph( cbind(gts, pts, rts), elementId = "growth", width="500", height="400" ) %>%
+      #   dyAxis("y", label="金额（万元)") %>%
+      #   dyAxis("y2", label = "毛利率(%)") %>%
+      #   dySeries("gts", label="销售额") %>%
+      #   dySeries("pts", label="营业利润") %>%
+      #   dySeries("rts", label="毛利率", axis='y2')
+    })
+  },
+  
+  options = list(height = 800)
+)
+```
+
+<!-- ```{sql, connection=db, output.var="growth"} -->
+<!-- select to_char(summary_date, 'YYYY') summary_date, round(sum(net_sale)/10000, 2) net_sale_s, round(sum(oper_profit)/10000, 2) oper_profit_s, round(100*sum(oper_profit)/sum(net_sale), 2) grs_profit_r -->
+<!-- from salesumhist -->
+<!-- group by summary_date -->
+<!-- order by summary_date -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- gts<-ts(growth$net_sale_s, start=c(2014, 1), frequency = 1) -->
+<!-- pts<-ts(growth$oper_profit_s, start=c(2014, 1), frequency = 1) -->
+<!-- rts<-ts(growth$grs_profit_r, start=c(2014, 1), frequency = 1) -->
+
+<!-- showtext_auto() -->
+
+<!-- dygraph( cbind(gts, pts, rts), elementId = "growth", width="500", height="400" ) %>% -->
+<!--   dyAxis("y", label="金额（万元)") %>% -->
+<!--   dyAxis("y2", label = "毛利率(%)") %>% -->
+<!--   dySeries("gts", label="销售额") %>% -->
+<!--   dySeries("pts", label="营业利润") %>% -->
+<!--   dySeries("rts", label="毛利率", axis='y2') -->
+<!-- ``` -->
+
+<!-- ## 销售额（按销售渠道） -->
+
+<!-- ```{sql, connection=db, output.var="channel"} -->
+<!-- select distinct channel -->
+<!-- from entity -->
+<!-- where entity_type = '客户' -->
+<!-- ``` -->
+
+<!-- ```{sql, connection=db, output.var="revenue_c"} -->
+<!-- select to_char(summary_date, 'YYYY') s_year, channel, round(sum(s.net_sale)/10000, 2) net_sale_s -->
+<!-- from salesumhist s -->
+<!-- , entity e -->
+<!-- where s.customer_name = e.short_name -->
+<!-- and e.entity_type = '客户' -->
+<!-- group by summary_date, channel -->
+<!-- order by summary_date, channel -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- revenue.pivot <- dcast(revenue_c, s_year ~ channel) -->
+<!-- shinyApp( -->
+<!--   ui = fillPage( -->
+<!--     fillCol(flex = c(NA, 1), -->
+<!--     inputPanel(selectInput("brand", "Channel:", choices = channel) ), -->
+<!--     plotOutput("revenuPlot", height = "100%") -->
+<!--     ) -->
+<!--   ), -->
+<!--   server = function(input, output) { -->
+<!--     output$revenuPlot <- renderPlot({ -->
+<!--       barplot(revenue.pivot[,input$channel], ylab = "Revenue in RMB (Ten Thousand)", -->
+<!--        xlab = "Year", main = "Sales Revenue History by Channel", beside= TRUE, names.arg = revenue.pivot$s_year) -->
+<!--   }) -->
+<!--   }, -->
+<!--   options = list(height = 800) -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- # 百味来 -->
+
+<!-- Row -->
+<!-- --------------------------- -->
