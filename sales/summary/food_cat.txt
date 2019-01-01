@@ -1,0 +1,226 @@
+01.0	0	Dairy products, excluding products of category 02.0
+01.1	01.0	Milk and dairy-based drinks
+01.1.1	01.1	Milk and buttermilk
+01.1.1.1	01.1.1	Milk, including sterilized and UHT goats milk
+01.1.1.2	01.1.1	Buttermilk (plain)
+01.1.2	01.1	Dairy-based drinks, flavoured and/or fermented (e.g., chocolate milk, cocoa, eggnog, drinking yoghurt, whey-based drinks)
+01.2	01.0	Fermented and renneted milk products (plain), excluding food category 01.1.2 (dairy-based drinks)
+01.2.1	01.2	Fermented milks (plain)
+01.2.1.1	01.2.1	Fermented milks (plain), not heat-treated after fermentation
+01.2.1.2	01.2.1	Fermented milks (plain), heat-treated after fermentation
+01.2.2	01.2	Renneted milk
+01.3	01.0	Condensed milk and analogues
+01.3.1	01.3	Condensed milk (plain)
+01.3.2	01.3	Beverage whiteners
+01.3.3	01.3	Sweetened condensed milk (plain and flavoured), and analogues
+01.4	01.0	Cream (plain) and the like
+01.4.1	01.4	Pasteurized cream
+01.4.2	01.4	Sterilized, UHT, whipping or whipped, and reduced fat creams
+01.4.3	01.4	Clotted cream
+01.4.4	01.4	Cream analogues
+01.5	01.0	Milk powder and cream powder
+01.5.1	01.5	Milk powder and cream powder (plain)
+01.5.2	01.5	Milk and cream powder analogues
+01.5.3	01.5	Milk and cream (blend) powder (plain and flavoured)
+01.6	01.0	Cheese
+01.6.1	01.6	Unripened cheese
+01.6.2	01.6	Ripened cheese
+01.6.2.1	01.6.2	Total ripened cheese, includes rind
+01.6.2.2	01.6.2	Rind of ripened cheese
+01.6.2.3	01.6.2	Cheese powder (for reconstitution; e.g., for cheese sauces)
+01.6.3	01.6	Whey cheese
+01.6.4	01.6	Processed cheese
+01.6.4.1	01.6.4	Plain processed cheese
+01.6.4.2	01.6.4	Flavoured processed cheese, including containing fruit, vegetables, meat, etc.
+01.6.5	01.6	Cheese analogues
+01.6.6	01.6	Whey protein cheese
+01.7	01.0	Dairy-based desserts (e.g., ice cream, ice milk, pudding, fruit or flavoured yoghurt)
+01.8	01.0	Whey and whey products, excluding whey cheeses
+02.0	0	Fats and oils, and fat emulsions (type water-in-oil)
+02.1	02.0	Fats and oils essentially free from water
+02.1.1	02.1	Butter oil, anhydrous milkfat, ghee
+02.1.2	02.1	Vegetable oils and fats
+02.1.3	02.1	Lard, tallow, fish oil, and other animal fats
+02.2	02.0	Fat emulsions mainly of type water-in-oil
+02.2.1	02.2	Emulsions containing at least 80% fat
+02.2.1.1	02.2.1	Butter and concentrated butter
+02.2.1.2	02.2.1	Margarine and similar products (e.g., butter-margarine blends)
+02.2.2	02.2	Emulsions containing less than 80% fat (e.g., minarine)
+02.3	02.0	Fat emulsions other than food category 02.2, including mixed and/or flavoured products based on fat emulsions
+02.4	02.0	Fat-based desserts excluding dairy-based dessert products of food category 01.7
+03.0	0	Edible ices, including sherbet and sorbet
+04.0	0	Fruits and vegetables (including mushrooms and fungi, roots and tubers, pulses and legumes, aloe vera), seaweeds, and nuts and seeds
+04.1	04.0	Fruit
+04.1.1	04.1	Fresh fruit
+04.1.1.1	04.1.1	Untreated fresh fruit
+04.1.1.2	04.1.1	Surface-treated fresh fruit
+04.1.1.3	04.1.1	Peeled or cut fresh fruit
+04.1.2	04.1	Processed fruit
+04.1.2.1	04.1.2	Frozen fruit
+04.1.2.2	04.1.2	Dried fruit
+04.1.2.3	04.1.2	Fruit in vinegar, oil, or brine
+04.1.2.4	04.1.2	Canned or bottled (pasteurized) fruit
+04.1.2.5	04.1.2	Jams, jellies, marmalades
+04.1.2.6	04.1.2	Fruit-based spreads (e.g., chutney) excluding products of food category 04.1.2.5
+04.1.2.7	04.1.2	Candied fruit
+04.1.2.8	04.1.2	Fruit preparations, including pulp, purees, fruit toppings and coconut milk
+04.1.2.9	04.1.2	Fruit-based desserts, incl. fruit-flavoured water-based desserts
+04.1.2.10	04.1.2	Fermented fruit products
+04.1.2.11	04.1.2	Fruit fillings for pastries
+04.1.2.12	04.1.2	Cooked or fried fruit
+04.2	04.0	Vegetables (including mushrooms and fungi, roots and tubers, pulses and legumes, aloe vera), seaweeds, and nuts and seeds
+04.2.1	04.2	Fresh vegetables, and nuts and seeds
+04.2.1.1	04.2.1	Untreated fresh vegetables, and nuts and seeds
+04.2.1.2	04.2.1	Surface-treated fresh vegetables, and nuts and seeds
+04.2.1.3	04.2.1	Peeled, cut or shredded vegetables, and nuts and seeds
+04.2.2	04.2	Processed vegetables, seaweeds, and nuts and seeds
+04.2.2.1	04.2.2	Frozen vegetables
+04.2.2.2	04.2.2	Dried vegetables, seaweeds, and nuts and seeds
+04.2.2.3	04.2.2	Vegetables and seaweeds in vinegar, oil, brine, or soy sauce
+04.2.2.4	04.2.2	Canned or bottled (pasteurized) or retort pouch vegetables
+04.2.2.5	04.2.2	Vegetable, and nut and seed purees and spreads (e.g., peanut butter)
+04.2.2.6	04.2.2	Vegetable, and nut and seed pulps and preparations (e.g., vegetable desserts and sauces, candied vegetables, soybean curd) other than food category 04.2.2.5
+04.2.2.7	04.2.2	Fermented vegetable products
+04.2.2.8	04.2.2	Cooked or fried vegetables and seaweeds
+05.0	0	Confectionery
+05.1	05.0	Cocoa products and chocolate products including imitations and chocolate substitutes
+05.1.1	05.1	Cocoa mixes (powders and syrups)
+05.1.2	05.1	Cocoa-based spreads, incl. fillings
+05.1.3	05.1	Cocoa and chocolate products (e.g., milk chocolate bar, chocolate flakes, white chocolate) other than food categories 05.1.1, 05.1.2 and 05.1.4
+05.1.4	05.1	Imitation chocolate, chocolate substitute products
+05.2	05.0	Confectionery including hard and soft candy, nougats, etc. other than food categories 05.1, 05.3, and 05.4
+05.3	05.0	Chewing gum
+05.4	05.0	Decorations (e.g., for fine bakery wares), toppings (non-fruit) and sweet sauces
+06.0	0	Cereals and cereal products, including flours and starches from roots and tubers, pulses and legumes, excluding bakery wares of food category 07.0
+06.1	06.0	Whole, broken, or flaked grain, including rice
+06.2	06.0	Flours and starches
+06.3	06.0	Breakfast cereals, including rolled oats
+06.4	06.0	Pastas and noodles and like products (e.g. rice paper, rice vermicelli)
+06.4.1	06.4	Fresh pastas and noodles and like products
+06.4.2	06.4	Pre-cooked or dried pastas and noodles and like products
+06.5	06.0	Cereal and starch based desserts (e.g., rice pudding, tapioca pudding)
+06.6	06.0	Batters (e.g., for breading or batters for fish or poultry)
+06.7	06.0	Rice cakes (Oriental type only)
+07.0	0	Bakery wares
+07.1	07.0	Bread and ordinary bakery wares
+07.1.1	07.1	Breads and rolls
+07.1.2	07.1	Crackers, excluding sweet crackers
+07.1.3	07.1	Other ordinary bakery products (e.g., bagels, pitta, English muffins)
+07.1.4	07.1	Bread-type products, including bread stuffing and bread crumbs
+07.1.5	07.1	Steamed breads and buns
+07.2	07.0	Fine bakery wares
+07.2.1	07.2	Cakes, cookies and pies (e.g., fruit-filled or custard types)
+07.2.2	07.2	Other fine bakery products (e.g., doughnuts, sweet rolls, scones, and muffins)
+07.2.3	07.2	Mixes for fine bakery wares (e.g., cakes, pancakes)
+08.0	0	Meat and meat products, including poultry and game
+08.1	08.0	Fresh meat, poultry and game
+08.1.1	08.1	Fresh meat, poultry and game, whole pieces or cuts
+08.1.2	08.1	Fresh meat, poultry and game, comminuted
+08.2	08.0	Processed meat, poultry, and game products in whole pieces or cuts
+08.2.1	08.2	Non-heat treated processed meat, poultry, and game products in whole pieces or cuts
+08.2.1.1	08.2.1	Cured (including salted) non-heat treated processed meat, poultry, and game products in whole pieces or cuts
+08.2.1.2	08.2.1	Cured (including salted) and dried non-heat treated processed meat, poultry, and game products in whole pieces or cuts
+08.2.1.3	08.2.1	Fermented non-heat treated processed meat, poultry, and game products in whole pieces or cuts
+08.2.2	08.2	Heat-treated processed meat, poultry, and game products in whole pieces or cuts
+08.2.3	08.2	Frozen processed meat, poultry, and game products in whole pieces or cuts
+08.3	08.0	Processed comminuted meat, poultry, and game products
+08.3.1	08.3	Non-heat treated processed comminuted meat, poultry, and game products
+08.3.1.1	08.3.1	Cured (including salted) non-heat treated processed comminuted meat, poultry, and game products
+08.3.1.2	08.3.1	Cured (including salted) and dried non-heat treated processed comminuted meat, poultry, and game products
+08.3.1.3	08.3.1	Fermented non-heat treated processed comminuted meat, poultry, and game products
+08.3.2	08.3	Heat-treated processed comminuted meat, poultry, and game products
+08.3.3	08.3	Frozen processed comminuted meat, poultry, and game products
+08.4	08.0	Edible casings (e.g., sausage casings)
+09.0	0	Fish and fish products, including molluscs, crustaceans, and echinoderms
+09.1	09.0	Fresh fish and fish products, including molluscs, crustaceans, and echinoderms
+09.1.1	09.1	Fresh fish
+09.1.2	09.1	Fresh molluscs, crustaceans and echinoderms
+09.2	09.0	Processed fish and fish products, including molluscs, crustaceans, and echinoderms
+09.2.1	09.2	Frozen fish, fish fillets, and fish products, including molluscs, crustaceans, and echinoderms
+09.2.2	09.2	Frozen battered fish, fish fillets and fish products, including molluscs, crustaceans, and echinoderms
+09.2.3	09.2	Frozen minced and creamed fish products, including molluscs, crustaceans, and echinoderms
+09.2.4	09.2	Cooked and/or fried fish and fish products, including molluscs, crustaceans, and echinoderms
+09.2.4.1	09.2.4	Cooked fish and fish products
+09.2.4.2	09.2.4	Cooked molluscs, crustaceans, and echinoderms
+09.2.4.3	09.2.4	Fried fish and fish products, including molluscs, crustaceans, and echinoderms
+09.2.5	09.2	Smoked, dried, fermented, and/or salted fish and fish products, including molluscs, crustaceans, and echinoderms
+09.3	09.0	Semi-preserved fish and fish products, including molluscs, crustaceans, and echinoderms
+09.3.1	09.3	Fish and fish products, including molluscs, crustaceans, and echinoderms, marinated and/or in jelly
+09.3.2	09.3	Fish and fish products, including molluscs, crustaceans, and echinoderms, pickled and/or in brine
+09.3.3	09.3	Salmon substitutes, caviar, and other fish roe products
+09.3.4	09.3	Semi-preserved fish and fish products, including molluscs, crustaceans, and echinoderms (e.g., fish paste), excluding products of food categories 09.3.1 - 09.3.3
+09.4	09.0	Fully preserved, including canned or fermented fish and fish products, including molluscs, crustaceans, and echinoderms
+10.0	0	Eggs and egg products
+10.1	10.0	Fresh eggs
+10.2	10.0	Egg products
+10.2.1	10.2	Liquid egg products
+10.2.2	10.2	Frozen egg products
+10.2.3	10.2	Dried and/or heat coagulated egg products
+10.3	10.0	Preserved eggs, including alkaline, salted, and canned eggs
+10.4	10.0	Egg-based desserts (e.g., custard)
+11.0	0	Sweeteners, including honey
+11.1	11.0	White and semi-white sugar (sucrose or saccharose), fructose, glucose (dextrose), xylose; sugar solutions and syrups, also (partially) inverted sugars, incl. molasses, treacle, and sugar toppings
+11.2	11.0	Other sugars and syrups (e.g., brown sugar, maple syrup)
+11.3	11.0	Honey
+11.4	11.0	Table-top sweeteners, including those containing high-intensity sweeteners
+12.0	0	Salts, spices, soups, sauces, salads, protein products
+12.1	12.0	Salt
+12.2	12.0	Herbs, spices, seasonings (including salt substitutes) and condiments (e.g., seasoning for instant noodles)
+12.3	12.0	Vinegars
+12.4	12.0	Mustards
+12.5	12.0	Soups and broths
+12.5.1	12.5	Ready-to-eat soups and broths, including canned, bottled, and frozen
+12.5.2	12.5	Mixes for soups and broths
+12.6	12.0	Sauces and like products
+12.6.1	12.6	Emulsified sauces (e.g., mayonnaise, salad dressing)
+12.6.2	12.6	Non-emulsified sauces (e.g., ketchup, cheese sauce, cream sauce, brown gravy)
+12.6.3	12.6	Mixes for sauces and gravies
+12.6.4	12.6	Clear sauces (e.g., soy sauce, fish sauce)
+12.7	12.0	Salads (e.g., macaroni salad, potato salad) and sandwich spreads excluding cocoa- and nut-based spreads of food categories 04.2.2.5 and 05.1.2
+12.8	12.0	Yeast and like products
+12.9	12.0	Protein products
+13.0	0	Foodstuffs intended for particular nutritional uses
+13.1	13.0	Infant formulae and follow-on formulae
+13.2	13.0	Weaning foods for infants and growing children
+13.3	13.0	Dietetic foods intended for special medical purposes, including those for infants and young children
+13.4	13.0	Dietetic formulae for slimming purposes and weight reduction
+13.5	13.0	Dietetic foods (e.g., supplementary foods for dietary use) excluding products of food categories 13.1- 13.4
+13.6	13.0	Food supplements
+14.0	0	Beverages, excluding dairy products
+14.1	14.0	Non-alcoholic ("soft") beverages
+14.1.1	14.1	Waters
+14.1.1.1	14.1.1	Natural mineral waters and source waters
+14.1.1.2	14.1.1	Table waters and soda waters
+14.1.2	14.1	Fruit and vegetable juices
+14.1.2.1	14.1.2	Canned or bottled (pasteurized) fruit juice
+14.1.2.2	14.1.2	Canned or bottled (pasteurized) vegetable juice
+14.1.2.3	14.1.2	Concentrates (liquid or solid) for fruit juice
+14.1.2.4	14.1.2	Concentrates (liquid or solid) for vegetable juice
+14.1.3	14.1	Fruit and vegetable nectars
+14.1.3.1	14.1.3	Canned or bottled (pasteurized) fruit nectar
+14.1.3.2	14.1.3	Canned or bottled (pasteurized) vegetable nectar
+14.1.3.3	14.1.3	Concentrates (liquid or solid) for fruit nectar
+14.1.3.4	14.1.3	Concentrates (liquid or solid) for vegetable nectar
+14.1.4	14.1	Water-based flavoured drinks, including "sport" or "electrolyte" drinks and particulated drinks
+14.1.4.1	14.1.4	Carbonated drinks
+14.1.4.2	14.1.4	Non-carbonated, including punches and ades
+14.1.4.3	14.1.4	Concentrates (liquid or solid) for drinks
+14.1.5	14.1	Coffee, coffee substitutes, tea, herbal infusions, and other hot cereal and grain beverages, excluding cocoa
+14.2	14.0	Alcoholic beverages, including alcohol-free and low-alcoholic counterparts
+14.2.1	14.2	Beer and malt beverages
+14.2.2	14.2	Cider and perry
+14.2.3	14.2	Wines
+14.2.3.1	14.2.3	Still wine
+14.2.3.2	14.2.3	Sparkling and semi-sparkling wines
+14.2.3.3	14.2.3	Fortified wine and liquor wine
+14.2.3.4	14.2.3	Aromatized wine
+14.2.4	14.2	Fruit wine
+14.2.5	14.2	Mead
+14.2.6	14.2	Spirituous beverages
+14.2.6.1	14.2.6	Spirituous beverages containing more than 15% alcohol
+14.2.6.2	14.2.6	Spirituous beverages containing less than 15% alcohol
+15.0	0	Ready-to-eat savouries
+15.1	15.0	Snacks - potato, cereal, flour or starch based (from roots and tubers, pulses and legumes)
+15.2	15.0	Processed nuts, including coated nuts and nut mixtures (with e.g., dried fruit)
+15.3	15.0	Snacks - fish based
+16.0	0	Composite foods (e.g., casseroles, meat pies, mincemeat) - foods that could not be placed in categories 01 - 15.
